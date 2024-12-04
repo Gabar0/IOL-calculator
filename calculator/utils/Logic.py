@@ -89,16 +89,4 @@ def SRKT_SE(al, k1, k2, a_constant, iol_power, ac_depth):
     return SEpred
 
 
-"""
-Al: Axial length of the eye (in millimeters).
-k1: Keratometry Flat Meridian (in diopters)
-k2: Keratometry Steep Meridian (in diopters)
-average_k: Keratometry, Average corneal power (in diopters)
-r: Radius of Curvature (in millimeters)
-a_constant: A-constant specific to the lens being used.
 
-V: an empirical constant value (12.0) used in the context of optical calculations.
-Na: Refractive index of the aqueous and vitreous humors (1.336).
-nc: Refractive index of the cornea (1.333).
-Ncml: Conversion factor related to axial length measurement (0.333).
-"""
