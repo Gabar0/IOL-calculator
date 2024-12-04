@@ -6,7 +6,7 @@ Einleitung
 ----------
 
 Diese Applikation ermöglicht die Berechnung der Intraocular Lens (IOL) für Patienten, die eine Kataraktoperation benötigen. Die Software erfasst biometrische Daten des Auges und bestimmt anhand dieser Daten die geeignete künstliche Linse.
-
+![UI der Applikation](UI.png)
 ---
 
 Hauptfunktionen
@@ -47,7 +47,8 @@ Technische Details
   - **Model:** Definition der Datenmodelle und Speicherung in der Datenbank.
   - **View:** Logik für Benutzeranfragen und Berechnungen.
   - **Template:** HTML-Darstellung der Benutzeroberfläche.
-
+  - 
+![MVT](MVT-Pattern.png)
 ---
 
 API-Integration
