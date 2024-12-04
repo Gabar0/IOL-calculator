@@ -1,0 +1,152 @@
+<!-- results.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Results</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/results.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Results</h1>
+      <div class="results">
+        <div class="patient-info">
+          <label>Patient Name:</label>
+          <input type="text" value="{{ patient_name }}" readonly />
+          <label>Date of Birth:</label>
+          <input type="text" value="{{date_of_birth }}" readonly />
+          <label>K.Index:</label>
+          <input type="text" value="{{keratometric_index }}" readonly />
+        </div>
+        {% if od_calculation %}
+        <div class="eye-section-OD">
+          <h2>OD RIGHT</h2>
+          <div class="fields-OD">
+            <div class="field">
+              <label>Axial Length:</label>
+              <input type="text" value="{{ od_calculation.AL }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>Anterior Chamber Depth:</label>
+              <input type="text" value="{{ od_calculation.ACD }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>Keratometry K1 (Flat):</label>
+              <input type="text" value="{{ od_calculation.K1 }}" readonly />
+            </div>
+            <div class="field">
+              <label>Keratometry K2 (Steep):</label>
+              <input type="text" value="{{ od_calculation.K2 }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>IOL Model:</label>
+              <input
+                type="text"
+                value="{{ od_calculation.iol_model }}"
+                readonly
+              />
+            </div>
+            <div class="field">
+              <label>A-Constant:</label>
+              <input
+                type="text"
+                value="{{ od_calculation.a_constant }}"
+                readonly
+              />
+            </div>
+
+            <div class="field">
+              <label>IOL POWER (D):</label>
+              <input
+                type="text"
+                value="{{ od_calculation.iol_power }}"
+                readonly
+              />
+            </div>
+            <div class="field">
+              <label>REFRACTION (D):</label>
+              <input
+                type="text"
+                value="{{ od_calculation.REFRACTION }}"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+        {% endif %} {% if os_calculation %}
+        <div class="eye-section-OS">
+          <h2>OS LEFT</h2>
+          <div class="fields-OS">
+            <div class="field">
+              <label>Axial Length:</label>
+              <input type="text" value="{{ os_calculation.AL }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>Anterior Chamber Depth:</label>
+              <input type="text" value="{{ os_calculation.ACD }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>Keratometry K1 (Flat):</label>
+              <input type="text" value="{{ os_calculation.K1 }}" readonly />
+            </div>
+            <div class="field">
+              <label>Keratometry K2 (Steep):</label>
+              <input type="text" value="{{ os_calculation.K2 }}" readonly />
+            </div>
+
+            <div class="field">
+              <label>IOL Model:</label>
+              <input
+                type="text"
+                value="{{ os_calculation.iol_model }}"
+                readonly
+              />
+            </div>
+            <div class="field">
+              <label>A-Constant:</label>
+              <input
+                type="text"
+                value="{{ os_calculation.a_constant }}"
+                readonly
+              />
+            </div>
+
+            <div class="field">
+              <label>IOL POWER (D):</label>
+              <input
+                type="text"
+                value="{{ os_calculation.iol_power }}"
+                readonly
+              />
+            </div>
+            <div class="field">
+              <label>REFRACTION (D):</label>
+              <input
+                type="text"
+                value="{{ os_calculation.REFRACTION }}"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="buttons">
+          <button onclick="window.print()">Print</button>
+          <button onclick="window.history.back()">Modify Calculation</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+

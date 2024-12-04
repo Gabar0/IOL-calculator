@@ -1,0 +1,287 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IOL Calculator</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="{% url 'calculator:index' %}">Index</a></li>
+        <li>
+          <a href="{% url 'calculator:IOlSpecifications' %}"
+            >IOL Specifications</a
+          >
+        </li>
+        <li><a href="{% url 'calculator:about' %}">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="iol-calculator">
+      <div class="header">
+        <h1>IOL CALCULATOR</h1>
+      </div>
+
+      <form method="post" action="{% url 'calculator:calculation' %}">
+        {% csrf_token %}
+        <div class="input-container">
+          <div class="patient-info">
+            <label for="patient-id">Patient Name</label>
+            <input type="text" id="patient-id" name="patient_name" required />
+          </div>
+
+          <div class="dob">
+            <label for="dob">Date of Birth&nbsp;</label>
+            <input type="date" id="dob" name="date_of_birth" required />
+          </div>
+
+          <div class="keratometric-index">
+            <label for="keratometric-index">Keratometric Index</label>
+            <select id="keratometric-index" name="keratometric_index" required>
+              <option value="1.3375">1.3375</option>
+              <option value="1.3315">1.3315</option>
+              <option value="1.332">1.332</option>
+              <option value="1.336">1.336</option>
+            </select>
+          </div>
+
+          <div class="eye-selection">
+            <label for="eye">Eye</label>
+            <select id="eye" name="eye" required>
+              <option value="OD">OD</option>
+              <option value="OS">OS</option>
+              <option value="OU">OU</option>
+            </select>
+          </div>
+
+          <div class="image-container">
+            <img src="{% static 'eye.png' %}" alt="Eye Diagram" />
+          </div>
+
+          <div class="eye-measurements">
+            <div class="eye-section-OD">
+              <h2>OD RIGHT</h2>
+              <div class="fields-OD">
+                <div class="Model-constant-Target-od">
+                  <div class="field-Model">
+                    <label for="iol-model-od">IOL Model</label>
+                    <select id="iol-model-od" name="od_iol_model">
+                      <option value="Alcon SA60AT">Alcon SA60AT</option>
+                      <option value="Alcon SN60WF">Alcon SN60WF</option>
+                      <option value="Zeiss 829M">Zeiss 829M</option>
+                      <option value="Zeiss 621P">Zeiss 621P</option>
+                      <option value="Other Model">Other Model</option>
+                    </select>
+                  </div>
+
+
+                  <div class="field-constant">
+                    <label for="a-constant-od">A-Constant</label>
+                    <input
+                      type="text"
+                      id="a-constant-od"
+                      name="od_a_constant"
+                    />
+                  </div>
+
+                  <div class="field-Target">
+                    <label for="target-refraction-od">Target Refraction</label>
+                    <input
+                      type="text"
+                      id="target-refraction-od"
+                      name="od_target_refraction"
+                      value="0.0"
+                    />
+                  </div>
+                </div>
+
+                <div class="Bio-OD">
+                  <div class="field">
+                    <label for="al-od">Axial Length</label>
+
+                    <div class="input-wrapper">
+                      <input type="text" id="al-od" name="od_axial_length" />
+                    </div>
+
+                    <div class="value-range">(15.00 - 40.00 mm)</div>
+                    <div
+                      id="error-message-al-od"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="acd-od">Anterior Chamber Depth</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="acd-od" name="od_ac_depth" />
+                    </div>
+                    <div class="value-range">(1.50 - 6.00 mm)</div>
+                    <div
+                      id="error-message-acd-od"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="k1-od">Keratometry K1 (Flat)</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="k1-od" name="od_k1_flat" />
+                    </div>
+                    <div class="value-range">(35.00 - 65.00 D)</div>
+                    <div
+                      id="error-message-k1-od"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="k2-od">Keratometry K2 (Steep)</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="k2-od" name="od_k2_steep" />
+                    </div>
+                    <div class="value-range">(35.00 - 65.00 D)</div>
+                    <div
+                      id="error-message-k2-od"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="eye-section-OS">
+              <h2>OS Left</h2>
+              <div class="fields-OS">
+                <div class="Model-constant-Target-os">
+                  <div class="field-Model">
+                    <label for="iol-model-os">IOL Model</label>
+                    <select id="iol-model-os" name="os_iol_model">
+                      <option value="Alcon SA60AT">Alcon SA60AT</option>
+                      <option value="Alcon SN60WF">Alcon SN60WF</option>
+                      <option value="Zeiss 829M">Zeiss 829M</option>
+                      <option value="Zeiss 621P">Zeiss 621P</option>
+                      <option value="Other Model">Other Model</option>
+                    </select>
+                  </div>
+
+                  <div class="field-constant">
+                    <label for="a-constant-os">A-Constant</label>
+                    <input
+                      type="text"
+                      id="a-constant-os"
+                      name="os_a_constant"
+                    />
+                  </div>
+
+                  <div class="field-Target">
+                    <label for="target-refraction-os">Target Refraction</label>
+                    <input
+                      type="text"
+                      id="target-refraction-os"
+                      name="os_target_refraction"
+                      value="0.0"
+                    />
+                  </div>
+                </div>
+
+                <div class="Bio-OS">
+                  <div class="field">
+                    <label for="al-os">Axial Length</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="al-os" name="os_axial_length" />
+                    </div>
+                    <div class="value-range">(15.00 - 40.00 mm)</div>
+                    <div
+                      id="error-message-al-os"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="acd-os">Anterior Chamber Depth</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="acd-os" name="os_ac_depth" />
+                    </div>
+                    <div class="value-range">(1.50 - 6.00 mm)</div>
+                    <div
+                      id="error-message-acd-os"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="k1-os">Keratometry K1 (Flat)</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="k1-os" name="os_k1_flat" />
+                    </div>
+                    <div class="value-range">(35.00 - 65.00 D)</div>
+                    <div
+                      id="error-message-k1-os"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="k2-os">Keratometry K2 (Steep)</label>
+                    <div class="input-wrapper">
+                      <input type="text" id="k2-os" name="os_k2_steep" />
+                    </div>
+                    <div class="value-range">(35.00 - 65.00 D)</div>
+                    <div
+                      id="error-message-k2-os"
+                      class="error-message"
+                      style="display: none"
+                    >
+                      This value is outside the defined range!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actionss">
+          <button type="submit">Calculate</button>
+          <button type="reset">Reset</button>
+        </div>
+        {% if form_errors %}
+        <div style="color: rgb(247, 222, 39)">
+          {% for field, errors in form_errors.items %}
+          <p>{{ field }}: {{ errors }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </form>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>

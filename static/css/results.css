@@ -1,0 +1,123 @@
+
+
+
+
+
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.patient-info {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  border-color: #007bff;
+  border-width: 3px;
+  
+}
+
+.patient-info label {
+  display: inline-block;
+  width: 11%;
+  font-weight: bold;
+}
+
+.patient-info input{
+  width: 18%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+
+.eye-section-OD, .eye-section-OS {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border-color: #007bff;
+  border-width: 3px;
+}
+
+.eye-section-OD label, .eye-section-OS label {
+  display: inline-block;
+  width: 70%;
+  font-weight: bold;
+}
+
+.eye-section-OD input, .eye-section-OS input {
+  width: 50%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+.fields-OD, .fields-OS {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  margin-bottom: 5px;
+}
+
+.field input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background-color: #0056b3;
+}

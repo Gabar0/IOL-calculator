@@ -1,0 +1,117 @@
+<!-- index.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed Explanation of the SRK/T Formula</title>
+
+    <link rel="stylesheet" href="{% static 'css/about.css' %}" />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+    h1 {
+      color: #2e445e;
+    }
+    h2 {
+      color: #2e445e;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .formula {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="{% url 'calculator:index' %}">Index</a></li>
+        <li>
+          <a href="{% url 'calculator:IOlSpecifications' %}"
+            >IOL Specifications</a
+          >
+        </li>
+        <li><a href="{% url 'calculator:about' %}">About</a></li>
+
+        <li></li>
+      </ul>
+    </nav>
+    <header></header>
+
+    <h1>Detailed Explanation of the SRK/T Formula</h1>
+    <p>
+      The SRK/T formula is a sophisticated method used for calculating the power
+      of intraocular lenses (IOLs) for cataract surgery. It combines aspects of
+      geometric optics and regression formulas to predict the effective lens
+      position (ELP) and thus determine the appropriate IOL power. Here is a
+      step-by-step explanation:
+    </p>
+
+    <h2>1. Retinal Thickness (RETHICK) and AL Value</h2>
+    <p>
+      The formula incorporates retinal thickness, which is dependent on the
+      axial length (AL).
+    </p>
+    <div class="formula">
+      RETHICK is calculated using the formula:<br />
+      RETHICK = 0.65696 + 0.02029 × AL
+    </div>
+
+    <h2>2. Modified AL Value (LCOR)</h2>
+    <p>
+      The AL is slightly adjusted to predict the lens position more accurately,
+      particularly for high AL values. This adjustment is referred to as LCOR.
+    </p>
+    <div class="formula">
+      The LCOR is computed using:<br />
+      <code>
+        LCOR =
+        <span style="display: block; margin-left: 20px">
+          { AL if AL ≤ 24.2 <br />
+          -3.446 + (1.715 × AL) - (0.0237 × AL²) if AL > 24.2 }
+        </span>
+      </code>
+    </div>
+
+    <h2>3. Corneal Width (Cw)</h2>
+    <p>
+      The formula uses a transformed AL value (LCOR) and K value (keratometry)
+      to predict the corneal width (Cw).
+    </p>
+    <div class="formula">
+      Cw is calculated as:<br />
+      Cw = -5.40948 + (0.58412 × LCOR) + (0.098 × K)
+    </div>
+
+    <h2>4. Optical Calculation (H)</h2>
+    <p>
+      The H parameter is calculated using the R (radius of curvature) and Cw.
+    </p>
+    <div class="formula">
+      If x ≤ 0:<br />
+      x = R² - (Cw² / 4)<br /><br />
+      Otherwise:<br />
+      H = R - √x
+    </div>
+
+    <h2>5. Effective Lens Position (ELP)</h2>
+    <p>
+      The ACD constant is transformed and combined with the computed H to give
+      the ELP.
+    </p>
+    <div class="formula">
+      ACD constant:<br />
+      ACD const = H - 3.336
+    </div>
+  </body>
+</html>

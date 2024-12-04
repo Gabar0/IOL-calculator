@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        padding: 0px;
+      
+      }
+      .form-container {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .form-group label {
+        width: 15%;
+        margin-right: 5px;
+      }
+      .form-group select,
+      .form-group input {
+        /*flex: 1;*/
+        width: 15%;
+      }
+      .form-group .btn {
+        width: 100px;
+        margin-left: 10px;
+      }
+
+      .specifications,
+      .constants {
+        border-top: 2px solid #007bff;
+        padding-top: 10px;
+      }
+      .section-title {
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .specifications table {
+        width: 30%;
+      }
+
+      .constants table {
+        width: 50%;
+      }
+      .specifications td,
+      .constants td {
+        padding: 5px;
+      }
+
+      .navbar {
+        overflow: hidden;
+        background-color: #2e445e;
+        border-bottom: 1px solid #e7e7e7;
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .image-container {
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      .image-container img {
+        max-width: 15%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Load static files -->
+    {% load static %}
+    <!-- Navbar -->
+    <div class="navbar">
+      <a class="active" href="{% url 'calculator:index' %}">Index</a>
+      <a href="{% url 'calculator:IOlSpecifications' %}">IOL Specifications</a>
+      <a href="{% url 'calculator:about' %}">About</a>
+    </div>
+
+    <div class="container mt-3">
+      <div class="form-container">
+        <div class="image-container">
+          <img src="{% static 'iols.png' %}" alt="IOLs" />
+        </div>
+        <form
+          id="search"
+          method="get"
+          action="{% url 'calculator:IOlSpecifications' %}"
+        >
+          <div class="col-md-6 form-group">
+            <label for="manufacturer" class="form-label">Manufacturer:</label>
+            <select
+              class="form-select"
+              id="manufacturer"
+              name="manufacturer"
+              onchange="updateModels()"
+            >
+              <option value="">(no selection)</option>
+            </select>
+          </div>
+          <div class="col-md-5 form-group">
+            <label for="model" class="form-label">Lens Name/Model:</label>
+            <select class="form-select" id="model" name="model">
+              <option value="">(no selection)</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 d-flex justify-content-end">
+            <button onclick="search()">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if lens_info %}
+    <div class="specifications">
+      <div class="section-title">Specifications</div>
+      <ul>
+        {% for key, value in lens_info.items %}
+        <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- Navbar -->
+
+    {% if constants %}
+    <div class="constants">
+      <div class="section-title">Constants</div>
+      <ul>
+        {% for key, value in constants.items %}
+        <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <script>
+      // Sample data
+      const data = [
+        {
+          _id: "2299",
+          Manufacturer: "1stQ",
+          Name: "611HPS",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "182",
+          Manufacturer: "1stQ",
+          Name: "BASW00",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1087",
+          Manufacturer: "Afidera",
+          Name: "Softec 1",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "160",
+          Manufacturer: "AJL Ophthalmic",
+          Name: "F601250",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "161",
+          Manufacturer: "AJL Ophthalmic",
+          Name: "LLY360",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "162",
+          Manufacturer: "AJL Ophthalmic",
+          Name: "LLY6002",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "158",
+          Manufacturer: "AJL Ophthalmic",
+          Name: "P651300",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "163",
+          Manufacturer: "AJL Ophthalmic",
+          Name: "Y601075",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "883",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MA50BM",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "882",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MA60AC",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "886",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MA60MA (+D)",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "887",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MA60MA (-D)",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "881",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MN60AC",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "884",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MN60MA (+D)",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "885",
+          Manufacturer: "Alcon",
+          Name: "AcrySof MN60MA (-D)",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "879",
+          Manufacturer: "Alcon",
+          Name: "AcrySof SA60AT",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "878",
+          Manufacturer: "Alcon",
+          Name: "AcrySof SN60AT",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "888",
+          Manufacturer: "Alcon",
+          Name: "PMMA MTA3U0",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "889",
+          Manufacturer: "Alcon",
+          Name: "PMMA MTA4U0",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "190",
+          Manufacturer: "Bausch + Lomb",
+          Name: "Akreos Adapt AO",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "198",
+          Manufacturer: "Bausch + Lomb",
+          Name: "Eye-CEE",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "907",
+          Manufacturer: "Biotech Europe Meditech",
+          Name: "Optiflex MPS6",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "820",
+          Manufacturer: "Biotech Vision Care",
+          Name: "EYECRYL PLUS 600",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "2287",
+          Manufacturer: "Cristalens",
+          Name: "Lucis",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "707",
+          Manufacturer: "Hanita Lenses",
+          Name: "B-Lens",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "708",
+          Manufacturer: "Hanita Lenses",
+          Name: "SeeLens",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "130",
+          Manufacturer: "HOYA",
+          Name: "150",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "131",
+          Manufacturer: "HOYA",
+          Name: "151",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "134",
+          Manufacturer: "HOYA",
+          Name: "PC-60R",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "135",
+          Manufacturer: "HOYA",
+          Name: "PY-60R",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "138",
+          Manufacturer: "HOYA",
+          Name: "VA-60BB",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "139",
+          Manufacturer: "HOYA",
+          Name: "VA-65BB",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "137",
+          Manufacturer: "HOYA",
+          Name: "YA-60BB",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "136",
+          Manufacturer: "HOYA",
+          Name: "YA-60BBR",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "140",
+          Manufacturer: "HOYA",
+          Name: "YA-65BB",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1632",
+          Manufacturer: "HumanOptics",
+          Name: "AS",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "576",
+          Manufacturer: "Johnson and Johnson Vision",
+          Name: "AAB00",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "700",
+          Manufacturer: "Johnson and Johnson Vision",
+          Name: "AR40e",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "699",
+          Manufacturer: "Johnson and Johnson Vision",
+          Name: "AR40E",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "698",
+          Manufacturer: "Johnson and Johnson Vision",
+          Name: "AR40M",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1090",
+          Manufacturer: "Lenstec",
+          Name: "Softec 1",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "653",
+          Manufacturer: "Ophtec",
+          Name: "AC 205",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "654",
+          Manufacturer: "Ophtec",
+          Name: "AC 205",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "922",
+          Manufacturer: "PhysIOL",
+          Name: "Slimflex",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "960",
+          Manufacturer: "Polytech Domilens",
+          Name: "Domicryl S+",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "965",
+          Manufacturer: "Polytech Domilens",
+          Name: "Nidek Nex Acri",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "966",
+          Manufacturer: "Polytech Domilens",
+          Name: "Nidek Nexload System NZ1",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1817",
+          Manufacturer: "Polytech Domilens",
+          Name: "Wuxi MS60A",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "892",
+          Manufacturer: "Rayner",
+          Name: "RayOne Spheric",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1691",
+          Manufacturer: "Teleon",
+          Name: "L-302-1",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1709",
+          Manufacturer: "Teleon",
+          Name: "L-303",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1828",
+          Manufacturer: "Teleon",
+          Name: "PCA81",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1118",
+          Manufacturer: "W2O Medizintechnik",
+          Name: "Care Flex II",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1681",
+          Manufacturer: "W2O Medizintechnik",
+          Name: "SDHB6130S",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "991",
+          Manufacturer: "ZEISS",
+          Name: "CT 13A",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "992",
+          Manufacturer: "ZEISS",
+          Name: "CT 27SF <10 D",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "993",
+          Manufacturer: "ZEISS",
+          Name: "CT 27SF >=10 D",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "996",
+          Manufacturer: "ZEISS",
+          Name: "CT 47S",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1006",
+          Manufacturer: "ZEISS",
+          Name: "CT LUCIA 201P",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1007",
+          Manufacturer: "ZEISS",
+          Name: "CT LUCIA 202",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1008",
+          Manufacturer: "ZEISS",
+          Name: "CT LUCIA 211P",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1009",
+          Manufacturer: "ZEISS",
+          Name: "CT LUCIA 211PY",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1139",
+          Manufacturer: "ZEISS",
+          Name: "CT LUCIA 221P",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1864",
+          Manufacturer: "ZEISS",
+          Name: "CT SPHERIS 203",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1863",
+          Manufacturer: "ZEISS",
+          Name: "CT SPHERIS 203P",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1016",
+          Manufacturer: "ZEISS",
+          Name: "CT SPHERIS 204",
+          OpticDesign: "sphere",
+        },
+        {
+          _id: "1017",
+          Manufacturer: "ZEISS",
+          Name: "CT SPHERIS 209M",
+          OpticDesign: "sphere",
+        },
+      ];
+
+      // Function to map IOL models to their corresponding Manufacturer
+      function mapModelsToManufacturer(data) {
+        const manufacturerMap = {};
+
+        data.forEach((lens) => {
+          const manufacturer = lens.Manufacturer;
+          const modelName = lens.Name;
+
+          if (!manufacturerMap[manufacturer]) {
+            manufacturerMap[manufacturer] = [];
+          }
+          manufacturerMap[manufacturer].push(modelName);
+        });
+
+        return manufacturerMap;
+      }
+
+      const manufacturerToModelsMap = mapModelsToManufacturer(data);
+
+      // Initialize the manufacturer dropdown
+      const manufacturerSelect = document.getElementById("manufacturer");
+      const modelsSelect = document.getElementById("model");
+      const manufacturers = Object.keys(manufacturerToModelsMap);
+
+      // Populate the manufacturer dropdown
+      manufacturers.forEach((manufacturer) => {
+        const option = document.createElement("option");
+        option.value = manufacturer;
+        option.textContent = manufacturer;
+        manufacturerSelect.appendChild(option);
+      });
+
+      // Update models based on selected manufacturer
+      function updateModels() {
+        const selectedManufacturer = manufacturerSelect.value;
+        modelsSelect.innerHTML = '<option value="">(no selection)</option>'; // Clear existing options
+
+        if (selectedManufacturer) {
+          const models = manufacturerToModelsMap[selectedManufacturer];
+          models.forEach((model) => {
+            const option = document.createElement("option");
+            option.value = model;
+            option.textContent = model;
+            modelsSelect.appendChild(option);
+          });
+        }
+      }
+
+      // Handle the search button click
+      function search() {
+        const manufacturer = document.getElementById("manufacturer").value;
+        const model = document.getElementById("model").value;
+        if (manufacturer && model) {
+          const form = document.getElementById("search");
+          form.submit();
+        } else {
+          alert("Please select both manufacturer and model.");
+        }
+      }
+    </script>
+  </body>
+</html>

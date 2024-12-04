@@ -1,0 +1,476 @@
+
+/* Global styles */
+/* Navbar */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1;
+  overflow: hidden;
+  background-color: #2E445E;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #fcfbfb;
+
+}
+
+
+
+.iol-calculator {
+  max-width: 1200px;
+  margin: 30px auto;
+  background-color:  rgb(142, 158, 159);
+  border: 1px solid #3a0505;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 10px;
+}
+
+.header {
+  background: linear-gradient(180deg,#5a0202, #440202);
+  padding: 50px 0;
+ 
+  border-top-left-radius: 15px;
+  
+  border-top-right-radius: 15px;
+  
+}
+
+/* patient-info  */
+.header h1 {
+  text-align: center;
+  margin: 0;
+  font-size: 24px;
+  color: #ebe7e7;
+}
+
+.input-container {
+  display: outside;
+  justify-content: normal;
+  padding: 40px;
+  
+}
+ /* patient-info  */
+.patient-info {
+  display: block;
+  font-size: 1em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold; 
+  
+}
+.patient-info input[type='text']
+{
+  width: 20%;
+  padding: 8px;
+  border: 1px solid #4d0d0d;
+  border-radius: 4px;
+  position: relative;
+  left: 45px;
+}
+
+ /* Date of Birth */
+.dob {
+  display: block;
+  font-size: 1em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.dob input[type='date']
+{
+  width: 20%;
+  padding: 8px;
+  border: 1px solid #4d0d0d;
+  border-radius: 4px;
+  font-size: 14px; 
+  position: relative;
+  left: 45px;
+
+}
+
+/* keratometric-index  eye-selection */
+.keratometric-index {
+    display: block;
+    font-size: 1em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.keratometric-index input[type='text'],
+.keratometric-index select
+{
+  width: 10%;
+  padding: 8px;
+  border: 1px solid #4d0d0d;
+  border-radius: 4px;
+}
+
+.eye-selection{
+  display: block;
+  font-size: 1em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.eye-selection input[type='text'],
+.eye-selection select
+{
+width: 10%;
+padding: 8px;
+border: 1px solid #4d0d0d;
+border-radius: 4px;
+position: relative;
+left: 115px;
+}
+
+
+.eye-measurements {
+  position: relative;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+
+}
+
+/* eye-section-OD  */
+.eye-section-OD {
+width: 50%;
+background:  #fcfbfb;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+padding: 20px 20px 20px 20px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+}
+
+/* eye-section-OD  */
+.eye-section-OD h2 {
+font-size: 20px;
+color: #440202;
+
+
+}
+
+/* fields-OD  */
+.fields-OD {
+background: #dfdef3;
+border-top-left-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-bottom-right-radius: 5px;
+width: 100%;
+padding: 5px;
+padding-top: 20px;
+padding-bottom: 50px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Model-constant-Target-od */
+.Model-constant-Target-od{
+display: flex;
+display: -webkit-flex;
+padding-left: 15px;
+}
+.Model-constant-Target-od .field-Model{
+width: 45%;
+padding: 0 12px 0 12px;
+font-weight: bold;
+font-size: 14px; 
+font-family: 'Trebuchet MS', sans-serif;
+}
+.Model-constant-Target-od .field-constant{
+width: 30%;
+padding:  0 12px 0 12px;
+font-weight: bold;
+font-size: 14px; 
+font-family: 'Trebuchet MS', sans-serif;
+
+}
+.Model-constant-Target-od .field-Target{
+width: 30%;
+padding: 0 12px 0 12px;
+font-weight: bold;
+font-size: 14px; 
+font-family: 'Trebuchet MS', sans-serif;
+
+}
+.Model-constant-Target-od input[type='text'],
+.field-Model select
+{
+width: 100%;
+padding: 8px;
+border: 1px solid #4d0d0d;
+border-radius: 4px;
+}
+.Model-constant-Target-od input[type='text'],
+.field-constant
+{
+width: 70%;
+padding: 8px;
+border-radius: 4px;
+}
+
+.Model-constant-Target-od input[type='text'],
+.field-Target
+{
+width: 70%;
+padding: 8px;
+border-radius: 4px;
+}
+
+/* Bio-OD*/
+
+.Bio-OD .field{
+width: 70%;
+padding: 0 12px 0 50px;
+padding-top: 10px;
+padding-left: 25px;
+font-weight: bold;
+font-family: 'Trebuchet MS', sans-serif;
+font-size: 15px; 
+}
+
+.Bio-OD .field input[type='text']{
+width: 50%;
+padding: 8px;
+border: 1px solid #070202;
+border-radius: 4px;
+
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.input-unit {
+  position: absolute;
+  right: 165px; 
+  background-color: #e0e0e0; 
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.value-range {
+  font-size: 12px; 
+  color: #666; 
+}
+
+
+.field input.error {
+  width: 50%;
+  border-color: #e74c3c;
+  background-color: #faf49f;
+  color: #e74c3c;
+}
+.error-message {
+  width: 55%;
+  margin-top: 1px;
+  padding: 0px;
+  border-radius: 5px;
+  color: #e74c3c;
+  font-size: 10px;
+}
+
+
+.image-container {
+  position: absolute;
+  top: 10%; 
+  right: 27%;
+  width: 25%; 
+  height: 80%;
+}
+
+.image-container img {
+  width: 110%;
+  height: auto;
+}
+
+.eye-section-OS {
+  width: 50%;
+  background: #fcfbfb;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  
+}
+
+/* eye-section-OS h2  */
+.eye-section-OS h2 {
+  font-size: 20px;
+  color: #440202;
+
+}
+
+/* fields-OS  */
+.fields-OS {
+  background: #dfdef3;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 100%;
+  padding: 5px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  
+}
+
+/* Model-constant-Target-os */
+.Model-constant-Target-os{
+  display: flex;
+  display: -webkit-flex;
+  padding-left: 15px;
+  
+}
+.Model-constant-Target-os .field-Model{
+  width: 45%;
+  padding: 0 12px 0 12px;
+  font-weight: bold;
+  font-size: 14px; 
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.Model-constant-Target-os .field-constant{
+  width: 30%;
+  padding:  0 12px 0 12px;
+  font-weight: bold;
+  font-size: 14px; 
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.Model-constant-Target-os .field-Target{
+  width: 30%;
+  padding: 0 12px 0 12px;
+  font-weight: bold;
+  font-size: 14px; 
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.Model-constant-Target-os input[type='text'],
+.field-Model select {
+width: 70%;
+padding: 8px;
+border: 1px solid #4d0d0d;
+border-radius: 4px;
+
+font-size: 14px; 
+font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Bio-OS*/
+.Bio-OS .field{
+  width: 70%;
+  padding: 0 12px 0 50px;
+  padding-top: 10px;
+  padding-left: 25px;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 15px; 
+  }
+.Bio-OS .field input[type='text']{
+width: 50%;
+padding: 8px;
+border: 1px solid #070202;
+border-radius: 4px;
+}
+
+.field {
+  margin-bottom: 15px;
+  /*font-weight: bold;*/
+}
+.field label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.actionss {
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #2aa574;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #93bae5;
+}
+
+button:active {
+  background-color: #004494;
+}
+
+button[type="reset"] {
+  background-color: #6c757d;
+}
+
+button[type="reset"]:hover {
+  background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .input-container, .eye-measurements {
+    flex: 1 1 100%;
+    background-color:  rgb(142, 158, 159);
+    
+  }
+}
+.eye-measurements {
+  flex: 1 1 calc(50% - 20px);
+  
+}
+.highlight {
+  border-color: #007bff;
+  
+}
+
+
+
+
+
+
+
+
+  
