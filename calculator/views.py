@@ -304,4 +304,138 @@ def results_with_ou(request, od_id, os_id):
 
 
 
+"""old view
+def calculation(request):
+    if request.method == 'POST':
+        form = IOLCalculatorForm(request.POST)
+        if form.is_valid():
+            try:
+                print("Form is valid, processing data...")
+                # Perform calculations for OD
+                eye = form.cleaned_data['eye']
+                print(f"Eye: {eye}")
+                
+                od_iol_power = calculate_iol_power(
+                    form.cleaned_data['od_axial_length'],
+                    form.cleaned_data['od_k1_flat'],
+                    form.cleaned_data['od_k2_steep'],
+                    form.cleaned_data['od_a_constant']
+                )
+                print(f"OD IOL Power: {od_iol_power}")
+                
+                od_refraction = SRKT_SE(
+                    form.cleaned_data['od_axial_length'],
+                    form.cleaned_data['od_k1_flat'],
+                    form.cleaned_data['od_k2_steep'],
+                    form.cleaned_data['od_a_constant'],
+                    od_iol_power,
+                    form.cleaned_data['od_ac_depth']
+                )
+                print(f"OD Refraction: {od_refraction}")
+
+                patient, patient_created = Patient.objects.get_or_create(
+                    patient_name=form.cleaned_data['patient_name'],
+                    date_of_birth=form.cleaned_data['date_of_birth']
+                )
+                print(f"Patient: {patient}")
+
+                od_calculation = IOLCalculation.objects.create(
+                    patient_name=patient,
+                    eye=eye,
+                    iol_model=form.cleaned_data['od_iol_model'],
+                    a_constant=form.cleaned_data['od_a_constant'],
+                    AL=form.cleaned_data['od_axial_length'],
+                    ACD=form.cleaned_data['od_ac_depth'],
+                    K1=form.cleaned_data['od_k1_flat'],
+                    K2=form.cleaned_data['od_k2_steep'],
+                    Target_refraction=form.cleaned_data['od_target_refraction'],
+                    iol_power=od_iol_power,
+                    REFRACTION=od_refraction,
+                    calculation_date=datetime.now()
+                )
+                print(f"OD Calculation: {od_calculation}")
+
+                os_calculation = None
+                # Check if OS fields are provided
+                if (form.cleaned_data['os_axial_length'] and
+                    form.cleaned_data['os_k1_flat'] and
+                    form.cleaned_data['os_k2_steep'] and
+                    form.cleaned_data['os_a_constant'] and
+                    form.cleaned_data['os_ac_depth']):
+                    print("OS fields provided, performing calculations...")
+                    
+                    os_iol_power = calculate_iol_power(
+                        form.cleaned_data['os_axial_length'],
+                        form.cleaned_data['os_k1_flat'],
+                        form.cleaned_data['os_k2_steep'],
+                        form.cleaned_data['os_a_constant']
+                    )
+                    print(f"OS IOL Power: {os_iol_power}")
+                    
+                    os_refraction = SRKT_SE(
+                        form.cleaned_data['os_axial_length'],
+                        form.cleaned_data['os_k1_flat'],
+                        form.cleaned_data['os_k2_steep'],
+                        form.cleaned_data['os_a_constant'],
+                        os_iol_power,
+                        form.cleaned_data['os_ac_depth']
+                    )
+                    print(f"OS Refraction: {os_refraction}")
+                    
+                    os_calculation = IOLCalculation.objects.create(
+                        patient_name=patient,
+                        eye='OS',
+                        iol_model=form.cleaned_data['os_iol_model'],
+                        a_constant=form.cleaned_data['os_a_constant'],
+                        AL=form.cleaned_data['os_axial_length'],
+                        ACD=form.cleaned_data['os_ac_depth'],
+                        K1=form.cleaned_data['os_k1_flat'],
+                        K2=form.cleaned_data['os_k2_steep'],
+                        Target_refraction=form.cleaned_data['os_target_refraction'],
+                        iol_power=os_iol_power,
+                        REFRACTION=os_refraction,
+                        calculation_date=datetime.now()
+                    )
+                    print(f"OS Calculation: {os_calculation}")
+
+                if os_calculation:
+                    print("Redirecting to results with OD and OS calculations")
+                    return redirect('calculator:results', od_id=od_calculation.id, os_id=os_calculation.id)
+                else:
+                    print("Redirecting to results with OD calculation only")
+                    return redirect('calculator:results', od_id=od_calculation.id)
+
+            except Exception as e:
+                print(f"Error calculating IOL power: {e}")
+                return render(request, 'calculator/index.html', {'form': form, 'error': str(e)})
+        else:
+            print("Form is not valid")
+            print(form.errors)
+            return render(request, 'calculator/index.html', {'form': form, 'error': 'Form validation failed', 'form_errors': form.errors})
+    else:
+        form = IOLCalculatorForm()
+    return render(request, 'calculator/index.html', {'form': form})
+
+
+
+
+
+
+def results(request, od_id, os_id=None):
+    try:
+        od_calculation = IOLCalculation.objects.get(id=od_id)
+        
+        os_calculation = None
+        if os_id:
+            os_calculation = IOLCalculation.objects.get(id=os_id)
+            
+        return render(request, 'calculator/results.html', {
+            'od_calculation': od_calculation,
+            'os_calculation': os_calculation,
+        })
+    except IOLCalculation.DoesNotExist:
+        return render(request, 'calculator/results.html', {'error': 'Calculation not found'})
+    
+    """
+
 
